@@ -18,8 +18,8 @@ jobs:
         npm install
         npm install bangumi-data@latest
         node update.js
-    - name: Commit
-        run: |
+    - name: Commit Updates
+      run: |
         git config --local user.email "developer.haku+bot@gmail.com"
         git config --local user.name "hakubotto"
         time=$(date "+%Y%m%d%H%M%S")
