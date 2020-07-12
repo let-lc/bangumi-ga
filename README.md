@@ -4,7 +4,7 @@
 
 因为Bangumi的API有CORS限制，所以写了这个爬虫+利用(~~白嫖~~)jsdelivr cdn加速给我自己写的番剧网站使用。
 
-因为使用GitHub Actions来更新数据就直接叫做bangumi_ga了。（很随便的命名方式。
+因为使用GitHub Actions来更新数据就直接叫做bangumi-ga了。（很随便的命名方式。
 
 ## 使用注意 :warning:
 
@@ -21,19 +21,19 @@
 使用方法是照搬[Bangumi-Subject](https://github.com/czy0729/Bangumi-Subject)的。(Actions是抄[bangumi-onair](https://github.com/ekibun/bangumi_onair) (面向Ctrl+C Ctrl+V编程
 
 ```bash
-https://cdn.jsdelivr.net/gh/developer-haku/bangumi_ga@latest/data/{id / 100 (去小数点)}/{id}.json
+https://cdn.jsdelivr.net/gh/developer-haku/bangumi-ga@latest/data/{id / 100 (去小数点)}/{id}.json
 ```
 
 Javascript 例：
 
 ```javascript
-`https://cdn.jsdelivr.net/gh/developer-haku/bangumi_ga@latest/data/${parseInt(parseInt(id) / 100)}/${id}.json`
+`https://cdn.jsdelivr.net/gh/developer-haku/bangumi-ga@latest/data/${parseInt(parseInt(id) / 100)}/${id}.json`
 ```
 
 以id`276788`为例生成出以下url
 
 ```bash
-https://cdn.jsdelivr.net/gh/developer-haku/bangumi_ga@latest/data/2767/276788.json
+https://cdn.jsdelivr.net/gh/developer-haku/bangumi-ga@latest/data/2767/276788.json
 ```
 
 数据的格式就到[番组计划官方API](https://github.com/bangumi/api)的文档中进行查看。
