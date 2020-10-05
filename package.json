@@ -18,7 +18,7 @@
   "homepage": "https://github.com/developer-haku/bangumi_ga#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "bangumi-data": "^0.3.40",
+    "bangumi-data": "^0.3.41",
     "fs-extra": "^9.0.1"
   }
 }
