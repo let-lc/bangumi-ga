@@ -39,3 +39,8 @@ jobs:
         tag_name: ${{ steps.commit.outputs.time }}
         release_name: Release ${{ steps.commit.outputs.time }}
         body: ${{ steps.commit.outputs.time }}
+    - uses: dev-drprasad/delete-older-releases@v0.2.0
+      with:
+        keep_latest: 30
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
