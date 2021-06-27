@@ -31,16 +31,3 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.ACCESS_TOKEN }}
-    - name: Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.commit.outputs.time }}
-        release_name: Release ${{ steps.commit.outputs.time }}
-        body: ${{ steps.commit.outputs.time }}
-    - uses: dev-drprasad/delete-older-releases@v0.2.0
-      with:
-        keep_latest: 30
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
