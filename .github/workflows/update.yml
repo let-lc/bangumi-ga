@@ -3,31 +3,30 @@ name: BGM-SBJ-SPIDER
 # Run every day
 on:
   schedule:
-  - cron: "0 0 * * *"
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
       with:
-        node-version: "12.x"
+        node-version: "14"
     - name: Run Script
       run: |
         npm install
-        npm install bangumi-data@latest
         node update.js
     - name: Commit Updates
       id: commit
       run: |
-        git config --local user.email "developer.haku+bot@gmail.com"
+        git config --local user.email "68130732+hakubotto@users.noreply.github.com"
         git config --local user.name "hakubotto"
         time=$(date "+%Y%m%d%H%M%S")
         git add . -v
         git commit -m "Ver-${time} Updated"
         echo ::set-output name=time::$time
-    - name: Git Push
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.ACCESS_TOKEN }}
+        git push
