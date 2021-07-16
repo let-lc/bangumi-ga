@@ -1,4 +1,3 @@
-const bangumiData = require("bangumi-data");
 const { default: Axios } = require("axios");
 const fs = require("fs-extra");
 
@@ -6,8 +5,9 @@ const fs = require("fs-extra");
  * map bangumi data items to bangumi id
  * @returns an array with bangumi id integer
  */
-const getBangumiIdsList = () => {
-  return filterNoBangumiIds()
+const getBangumiIdsList = async () => {
+  const data = await filterNoBangumiIds();
+  return data
     .map((item) => parseInt(item.sites.find((i) => i.site === "bangumi").id))
     .sort((a, b) => b - a);
 };
@@ -16,8 +16,11 @@ const getBangumiIdsList = () => {
  * filter out bangumi data items that doesn't have bangumi id
  * @returns a filtered bangumi data item array
  */
-const filterNoBangumiIds = () => {
-  return bangumiData.items.filter((item) =>
+const filterNoBangumiIds = async () => {
+  const bangumiData = await Axios.get(
+    "https://raw.githubusercontent.com/bangumi-data/bangumi-data/master/dist/data.json"
+  ).catch((err) => console.log(err));
+  return bangumiData.data.items.filter((item) =>
     item.sites.find((i) => i.site === "bangumi")
   );
 };
@@ -51,19 +54,18 @@ const sleep = async (ms) => {
  */
 const writeToFile = (id, data) => {
   fs.outputJSONSync(`./data/${parseInt(id / 100)}/${id}.json`, data);
-  console.log(`FINISHED ${id}`);  // show message when data is saved to file
+  console.log(`FINISHED ${id}`); // show message when data is saved to file
 };
 
 /**
  * main function that execute the script
  */
 const main = async () => {
-  const idList = getBangumiIdsList();
+  const idList = await getBangumiIdsList();
   for (let i = 0; i < idList.length; i++) {
     await getBangumiApiData(idList[i]).then((data) => {
       writeToFile(idList[i], data);
     });
-    // await sleep(5000); // not use any more because it may waste a lot of github action minutes
   }
 };
 
